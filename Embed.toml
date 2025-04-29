@@ -1,0 +1,5 @@
+[default.general]
+chip = "STM32F303VCTx"
+
+[default.reset]
+halt_afterwards = false # halts after flashing (useful for debugging startup)

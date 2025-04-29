@@ -22,7 +22,22 @@ The `Cargo.toml` file was update to include these crates:
 - `panic-halt`: sets the panicking behaviour to halt.
 - `stm32fxx-hal`, with `rt` and `stm32f303xc` enabled: the HAL for the STM32F family, specifically the STM32F303 version. The `rt` refers to the startup functionalities.
 
-## Building the executable
+### `Embed.toml`
+This file is used to configure `cargo embed`. It is added, with:
+- `chip = "STM32F303VCTx"`: specify the chip type.
+- `[default.reset]`: whether to halt after flashing. This can be useful for debugging the startup process.
+
+### `.cargo/config.toml`
+This file describes the linker to use. In this case, the `rust-lld` linker is used.
+
+## Working with the executable
+
+### Building
 The build the binary, the command `cargo build --target thumbv7em-none-eabi` is used. This places the binary in a location like `target/thumbv7em-none-eabi/debug/rust` (running `cargo run` instead of `cargo build` will fail, but will show the path to the executable).
 
 The executable can be checked with `readelf -h target/thumbv7em-none-eabi/debug/rust`.
+
+### Flashing
+To flash it to the microcontroller, use `cargo embed`.
+
+`probe-rs info` can be used to list the `probe`-able devices.
