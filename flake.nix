@@ -56,7 +56,6 @@
                 pkgs.probe-rs-tools # On-chip debugging and flashing
                 pkgs.gdb            # Debugger
                 pkgs.openocd        # Flasher and debugger
-                pkgs.inetutils      # For `telnet`
                 pkgs.bacon          # Background rust code checker
                 pkgs.just           # Command runner
               ];

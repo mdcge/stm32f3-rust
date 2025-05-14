@@ -10,7 +10,8 @@ Starting from the basic [Rust nix starter](https://github.com/jacg/nix-starters)
 The only changes made here were the addition of
 - `cargo-binutils`: for LLVM tools.
 - `probe-rs-tools`: embedded toolkit, for on-chip debugging and flashing.
-- `gdb`: for debugging.
+- `gdb`: for debugging and flashing.
+- `openocd`: to establish the link with the microcontroller.
 
 ### `rust-toolchain.toml`
 The compilation target architecture for the Cortex-M4 is "thumbv7em-none-eabi". This is added to the `targets` parameter in `rust-toolchain.toml`.
