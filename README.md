@@ -20,7 +20,9 @@ The `Cargo.toml` file was update to include these crates:
 - `cortex-m-rt`: provides minimal startup code and runtime environment.
 - `cortex-m`: provides access to common Cortex-M core functionalities.
 - `panic-halt`: sets the panicking behaviour to halt.
-- `stm32fxx-hal`, with `rt` and `stm32f303xc` enabled: the HAL for the STM32F family, specifically the STM32F303 version. The `rt` refers to the startup functionalities.
+- `stm32fxx-hal`, with `stm32f303xc` enabled: the HAL for the STM32F family, specifically the STM32F303 version. The option `rt` refers to the startup functionalities. `ld` provides a default `memory.x` file for the memory map. These two options seem to not be necessary.
+
+Some debug options can also be added to `[profile.dev]` to make sure debugging works.
 
 ### `Embed.toml`
 This file is used to configure `cargo embed`. It is added, with:
