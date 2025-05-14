@@ -9,7 +9,7 @@ edition = "2024"
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.5"
 panic-halt = "1.0.0"
-stm32f3xx-hal = { version="0.10.0", features = ["stm32f303xc", "rt"] }
+stm32f3xx-hal = { version="0.10.0", features = ["stm32f303xc"] }
 
 [dev-dependencies]
 pretty_assertions = "1.4.1"
