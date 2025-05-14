@@ -38,6 +38,41 @@ The build the binary, the command `cargo build --target thumbv7em-none-eabi` is 
 The executable can be checked with `readelf -h target/thumbv7em-none-eabi/debug/rust`.
 
 ### Flashing
-To flash it to the microcontroller, use `cargo embed`.
+`probe-rs list` can be used to list the `probe`-able devices (`probe-rs info` for more information).
 
-`probe-rs info` can be used to list the `probe`-able devices.
+If bad code is present on the chip, it may prevent `cargo embed` from flashing the new binary. In this case, use `openocd -f interface/stlink.cfg -f target/stm32f3x.cfg` to gain access to the chip, followed by `telnet localhost 4444` (in a different shell). This opens a new prompt, in which the chip can be reset:
+```
+> reset halt
+> stm32f1x unlock 0
+> reset halt
+> exit
+```
+In the prompt, individual values at specific memory locations can be read using:
+```
+> mdw <address> <nb of words>  # e.g. mdw 0x08000000 4
+0x08000000: 20010000 08000195 08001f4d 08003a3f
+```
+
+To flash the binary to the chip:
+1. Use `openocd -f interface/stlink.cfg -f target/stm32f3x.cfg` to establish the connection with the microcontroller.
+2. Launch the GDB server with `gdb <path to binary>` (in a different shell).
+3. Flash the binary:
+   ```
+   > target extended-remote :3333
+   > load
+   > monitor reset halt
+   > continue
+   ```
+
+### Debugging
+The `openocd` command above will also open a GDB server. This can be accessed with `gdb <binary path>`, which will open a prompt. Here are some useful commands to use in this prompt:
+- `target extended-remote :3333`: connects to the GDB server.
+- `break main`: sets a breakpoint at the main function (highly recommended).
+- `layout src`: open a TUI to view the code.
+- `tui disable`: close the code TUI.
+- `break <linenb>`: set a breakpoint at the specified line.
+- `print <variable>`: prints the current value of a variable.
+- `info locals`: prints information about the local variables.
+- `next`: move to the next line of code.
+- `info functions`: shows the function symbols seen by GDB.
+
